@@ -50,12 +50,17 @@ fn part1(input: &str) -> Result<u32> {
 }
 
 fn part2(input: &str) -> Result<u32> {
-    let mut total: u32 = 0;
-    for line in input.lines() {
-        let (other, outcome) = parse_line2(line)?;
-        let my_shape = choose_shape(other, outcome);
-        total += score(other, my_shape);
-    }
+    // let mut total: u32 = 0;
+    // for line in input.lines() {
+    //     let (other, outcome) = parse_line2(line)?;
+    //     let my_shape = choose_shape(other, outcome);
+    //     total += score(other, my_shape);
+    // }
+    let total = input
+        .lines()
+        .iter()
+        .map(|line| -> u32 { score(choose_shape2(parse_line2(line)?)) })
+        .sum();
     Ok(total)
 }
 
@@ -164,4 +169,9 @@ fn choose_shape(other: Shape, outcome: Outcome) -> Shape {
             Shape::Scissors => Shape::Paper,
         },
     }
+}
+
+// return a tuple of (other, mine) Shapes
+fn choose_shape2(inp: (Shape, Outcome)) -> (Shape, Shape) {
+    (inp.0, choose_shape(inp.0, inp.1))
 }
