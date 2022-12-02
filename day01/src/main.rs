@@ -5,9 +5,8 @@ type Result<T> = ::std::result::Result<T, Box<dyn std::error::Error>>;
 fn main() -> Result<()> {
     let mut input = String::new();
     io::stdin().lock().read_to_string(&mut input)?;
-    println!("input: {}", &input);
     let res1 = part1(&input)?;
-    println!("part1: {res1}");
+    println!("part 1: {res1}");
 
     let res2 = part2(&input)?;
     println!(
@@ -34,7 +33,7 @@ fn part1(input: &str) -> Result<u32> {
     }
     // need to include the last result as well
     energies.push(acc);
-    println!("Energies (1): {:?}", &energies);
+    // println!("Energies (1): {:?}", &energies);
     return Ok(*energies.iter().max().unwrap());
 }
 
@@ -53,10 +52,10 @@ fn part2(input: &str) -> Result<(u32, u32, u32)> {
     }
     // need to include the last result as well
     energies.push(acc);
-    println!("Energies (2): {:?}", &energies);
-    return Ok((
+    // println!("Energies (2): {:?}", &energies);
+    Ok((
         energies.pop().unwrap(),
         energies.pop().unwrap(),
         energies.pop().unwrap(),
-    ));
+    ))
 }
