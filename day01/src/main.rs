@@ -9,13 +9,7 @@ fn main() -> Result<()> {
     println!("part 1: {res1}");
 
     let res2 = part2(&input)?;
-    println!(
-        "part 2: {} + {} + {} = {}",
-        res2.0,
-        res2.1,
-        res2.2,
-        res2.0 + res2.1 + res2.2
-    );
+    println!("part 2: {res2}");
     Ok(())
 }
 
@@ -38,7 +32,7 @@ fn part1(input: &str) -> Result<u32> {
 }
 
 use std::collections::BinaryHeap;
-fn part2(input: &str) -> Result<(u32, u32, u32)> {
+fn part2(input: &str) -> Result<u32> {
     let mut energies = BinaryHeap::new();
     let mut acc: u32 = 0;
     for line in input.lines() {
@@ -53,9 +47,8 @@ fn part2(input: &str) -> Result<(u32, u32, u32)> {
     // need to include the last result as well
     energies.push(acc);
     // println!("Energies (2): {:?}", &energies);
-    Ok((
-        energies.pop().unwrap(),
-        energies.pop().unwrap(),
-        energies.pop().unwrap(),
-    ))
+    Ok(energies.iter().take(3).sum::<u32>())
+
+    // Alternative:
+    // Ok(energies.pop().unwrap() + energies.pop().unwrap() + energies.pop().unwrap())
 }
