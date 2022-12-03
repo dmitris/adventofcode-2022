@@ -2,8 +2,6 @@ use anyhow::{bail, Result};
 use std::collections::HashSet;
 use std::io::{self, Read};
 
-// type Result<T> = std::result::Result<T, Box<dyn error::Error>>;
-
 fn main() -> Result<()> {
     let mut input = String::new();
     io::stdin().lock().read_to_string(&mut input)?;
@@ -45,8 +43,8 @@ fn part1(input: &str) -> Result<u32> {
 
 fn priority(n: u8) -> Result<u8> {
     match n {
-        97..=122 => Ok(n - 96),
-        65..=96 => Ok(n - 38),
+        b'a'..=b'z' => Ok(n - (b'a' - 1)),  // n - 96
+        b'A'..=b'Z' => Ok(n - (b'A' - 27)), // n - 38
         _ => bail!("bad input in priority: input {n} is outside of A-Za-z range"),
     }
 }
